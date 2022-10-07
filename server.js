@@ -42,6 +42,15 @@ const detailsType = new GraphQLObjectType({
 	})
 })
 
+const friendsType = new GraphQLObjectType({
+	name:"friends",
+	description:"this is about the friends",
+	fields:()=>({
+		friends:{type:(GraphQLString)}
+	})
+})
+
+
 const RootQueryType = new GraphQLObjectType({
 	name:'Query',
 	description:'Root Query',
@@ -50,6 +59,11 @@ const RootQueryType = new GraphQLObjectType({
 			type: new GraphQLList(detailsType),
 			description:'list of details',
 			resolve:()=> details.find() 
+		},
+		friends:{
+			type:new GraphQLList(friendsType),
+			description:"list of the friends",
+			resolve:()=> friends.find()
 		}
 	})
 })
@@ -68,7 +82,11 @@ app.get("/",(req,res)=>{
 	// detail.save()
 	res.send("this is the home page")
 })
-
+app.get("/friends",(req,res)=>{
+	const friend = new friends({friends:"random1knd"})
+	friend.save()
+	res.send("friends has been made")
+})
 app.listen(5000,()=>{
 	console.log("listening on port 5000")
 })
