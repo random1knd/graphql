@@ -25,32 +25,16 @@ const mongoose = require('mongoose')
 const {graphql,buildSchema} = require('graphql')
 const express = require('express')
 const app = express()
+const details = require('.//schema/detailsSchema')
+const friends = require('.//schema/friendsSchema')
 mongoose.connect("mongodb://localhost/graphql",()=>{
 	console.log("connected to the database")
 })
 
-const mongooseSchema = new mongoose.Schema({
-	name:{
-		type:String,
-		required:true
-	},
-	work:{
-		type:String,
-		required:true
-	}
-})
 
-mongoose.model("details",mongooseSchema)
 
-const mongooseSchema1 = new mongoose.Schema({
-	friends:{
-		type:String,
-		required:true,
 
-	}
-})
 
-mongoose.model("friends",mongooseSchema1)
 app.get("/",(req,res)=>{
 	res.send("this is the home page")
 })
