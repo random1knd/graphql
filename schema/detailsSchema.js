@@ -1,3 +1,5 @@
+
+const mongoose = require('mongoose')
 const mongooseSchema = new mongoose.Schema({
 	name:{
 		type:String,
@@ -10,4 +12,4 @@ const mongooseSchema = new mongoose.Schema({
 })
 
 
-module.exports = mongoose.model("friends",mongooseSchema)
+module.exports = mongoose.model("details",mongooseSchema)
