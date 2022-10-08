@@ -57,6 +57,9 @@ var schema = buildSchema(`
 		hello:${GraphQLString},
 		values:[String],
 		singleValue(index:${GraphQLInt}):String
+	},
+	type Mutation{
+		changeValue(message:String):[String]
 	}
 `)
 
@@ -69,8 +72,14 @@ var root = {
 	},
 	singleValue: ({index})=>{
 		return things[index]
+	},
+	changeValue:({message})=>{
+		things[0] = message
+		return things
 	}
-}
+	}
+
+
 
 
 
