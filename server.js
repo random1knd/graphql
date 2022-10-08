@@ -1,25 +1,3 @@
-// const express = require('express')
-// const app = express()
-
-// const {buildSchema } = require('graphql')
-
-
-
-// const schema = buildSchema(`
-// 	type something {
-// 		id:ID 
-// 		name:String
-// 	}
-// 	`)
-
-
-// 	type Query{
-// 		getCouse(id:ID):Course
-// 	}
-
-// app.listen(8000,()=>{
-// 	console.log("server has started")
-// })
 
 const mongoose = require('mongoose')
 const {GraphQLString,GraphQLInt,GraphQLNonNull, GraphQLObjectType, GraphQLList, GraphQLSchema} = require('graphql')
@@ -28,6 +6,7 @@ const express = require('express')
 const app = express()
 const details = require('.//schema/detailsSchema')
 const friends = require('.//schema/friendsSchema')
+
 mongoose.connect("mongodb://localhost/graphql",()=>{
 	console.log("connected to the database")
 })
@@ -37,7 +16,7 @@ const detailsType = new GraphQLObjectType({
 	name:"details",
 	description:"These are the details",
 	fields:()=>({
-		name:{type:(GraphQLString)},
+		name:{type:GraphQLString},
 		work:{type:(GraphQLString)}	
 	})
 })
@@ -53,10 +32,10 @@ const friendsType = new GraphQLObjectType({
 
 const RootQueryType = new GraphQLObjectType({
 	name:'Query',
-	description:'Root Query',
+	description:'This is the main query ',
 	fields:()=>({
 		details:{
-			type: new GraphQLList(detailsType),
+			type:new GraphQLList(detailsType),
 			description:'list of details',
 			resolve:()=> details.find() 
 		},
@@ -94,33 +73,3 @@ app.listen(5000,()=>{
 
 
 
-//From here
-
-
-
-// var express = require('express');
-// var { graphqlHTTP } = require('express-graphql');
-// var { buildSchema } = require('graphql');
-
-// // Construct a schema, using GraphQL schema language
-// var schema = buildSchema(`
-//   type Query {
-//     hello: String
-//   }
-// `);
-
-// // The root provides a resolver function for each API endpoint
-// var root = {
-//   hello: () => {
-//     return 'Hello world!';
-//   },
-// };
-
-// var app = express();
-// app.use('/graphql', graphqlHTTP({
-//   schema: schema,
-//   rootValue: root,
-//   graphiql: true,
-// }));
-// app.listen(4000);
-// console.log('Running a GraphQL API server at http://localhost:4000/graphql');
