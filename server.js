@@ -57,6 +57,7 @@ var schema = buildSchema(`
 		hello:${GraphQLString},
 		values:[String],
 		singleValue(index:${GraphQLInt}):String
+		user(value:String):String
 	},
 	type Mutation{
 		changeValue(message:String):[String]
@@ -76,6 +77,13 @@ var root = {
 	changeValue:({message})=>{
 		things[0] = message
 		return things
+	},
+	user:({value})=>{
+	if(value!="dikshith"){
+		
+		return {message:"not authorized"}
+	}
+	return `Welcome back ${value}`
 	}
 	}
 
@@ -98,6 +106,7 @@ app.use("/graphql",graphqlHTTP({
 app.get("/",(req,res)=>{
 	// const detail = new details({name:"dikshith",work:"engineer"})
 	// detail.save()
+	console.log(req.ip)
 	res.send("this is the home page")
 })
 app.get("/friends",(req,res)=>{
