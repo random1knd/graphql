@@ -63,7 +63,7 @@ var schema = buildSchema(`
 		changeValue(message:String):[String]
 	}
 `)
-
+//can query like this localhost/5000/graphql?query={hello}
 var root = {
 	hello:()=>{
 		return "This is a simple string"
@@ -81,7 +81,7 @@ var root = {
 	user:({value})=>{
 	if(value!="dikshith"){
 		
-		return {message:"not authorized"}
+		return "not authorized"
 	}
 	return `Welcome back ${value}`
 	}
@@ -97,7 +97,7 @@ var root = {
 
 
 app.use("/graphql",graphqlHTTP({
-	graphiql:true,
+	
 	rootValue:root,
 	schema:schema
 }))
